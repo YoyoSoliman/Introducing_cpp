@@ -1,0 +1,43 @@
+#include <cassert>
+#include <istream>
+#include <sstream>
+#include <iostream>
+
+[[nodiscard]] bool get_number(std::istream & input_stream, double & number){
+
+  input_stream >> number;
+  if (input_stream) {
+    return true;
+  }else{
+    return false;
+  }
+}
+
+void test_code(){
+
+  double value{};
+  std::stringstream some_input{"1"};
+  const bool ok = get_number(some_input, value);
+  assert(ok);
+  assert(value == 1);
+
+  double unused{};
+  std::stringstream bad_input{"q"};
+  const bool not_ok = get_number(bad_input, unused);
+  assert(!not_ok);
+
+}
+
+int main(){
+  test_code();
+  
+  double number{};
+  std::cout << "Please enter a number" << '\n' << ">";
+
+  if (get_number(std::cin, number)){
+    std::cout << "I got the number: " << number << " Thank you!";
+  }
+  else {
+    std::cout << "Something went wrong";
+  }
+}
