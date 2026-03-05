@@ -2,13 +2,15 @@
 #include <istream>
 #include <sstream>
 #include <iostream>
-
+#include <limits>
 [[nodiscard]] bool get_number(std::istream & input_stream, double & number){
 
   input_stream >> number;
   if (input_stream) {
     return true;
   }else{
+    input_stream.clear();
+    input_stream.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     return false;
   }
 }
@@ -33,11 +35,21 @@ int main(){
   
   double number{};
   std::cout << "Please enter a number" << '\n' << ">";
-
-  if (get_number(std::cin, number)){
+  const bool ok = get_number(std::cin, number);
+  if (ok) {
     std::cout << "I got the number: " << number << " Thank you!";
   }
   else {
-    std::cout << "Something went wrong";
+    double number_new{};
+
+    std::cout << "Something went wrong\n";
+    std::cout << "Try again bozo\n>";
+    const bool ok_now = get_number(std::cin, number_new);
+
+    if (ok_now) {
+      std::cout << "I got the number: " << number_new << "Thank you";
+    } else {
+      std::cout << "Someting went wrong!";
+    }
   }
 }
