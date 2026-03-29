@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/yoyosoliman/Desktop/WorkDir/Introducing_cpp/ch_2/input_with_test'
+relocations:     []
+...

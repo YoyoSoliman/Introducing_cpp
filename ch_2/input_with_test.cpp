@@ -1,21 +1,22 @@
 #include <cassert>
-#include <istream>
-#include <sstream>
 #include <iostream>
+#include <istream>
 #include <limits>
-[[nodiscard]] bool get_number(std::istream & input_stream, double & number){
+#include <sstream>
+
+[[nodiscard]] bool get_number(std::istream &input_stream, double &number) {
 
   input_stream >> number;
   if (input_stream) {
     return true;
-  }else{
+  } else {
     input_stream.clear();
     input_stream.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     return false;
   }
 }
 
-void test_code(){
+void test_code() {
 
   double value{};
   std::stringstream some_input{"1"};
@@ -27,19 +28,18 @@ void test_code(){
   std::stringstream bad_input{"q"};
   const bool not_ok = get_number(bad_input, unused);
   assert(!not_ok);
-
 }
 
-int main(){
+int main() {
+
   test_code();
-  
+
   double number{};
   std::cout << "Please enter a number" << '\n' << ">";
   const bool ok = get_number(std::cin, number);
   if (ok) {
     std::cout << "I got the number: " << number << " Thank you!";
-  }
-  else {
+  } else {
     double number_new{};
 
     std::cout << "Something went wrong\n";
@@ -47,9 +47,9 @@ int main(){
     const bool ok_now = get_number(std::cin, number_new);
 
     if (ok_now) {
-      std::cout << "I got the number: " << number_new << "Thank you";
+      std::cout << "I got the number: " << number_new << " Thank you";
     } else {
-      std::cout << "Someting went wrong!";
+      std::cout << "Something went wrong!";
     }
   }
 }
